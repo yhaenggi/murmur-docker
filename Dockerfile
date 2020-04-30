@@ -1,6 +1,6 @@
 ARG ARCH
 FROM ${ARCH}/ubuntu:bionic
-MAINTAINER yhaenggi <yhaenggi@darkgamex.ch>
+MAINTAINER yhaenggi <yhaenggi-git-public@darkgamex.ch>
 
 ARG ARCH
 ARG VERSION
