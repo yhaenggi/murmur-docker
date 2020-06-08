@@ -2,7 +2,7 @@ These images have been built and tested on docker amd64, arm32v7 and arm64v8. Th
 
 ## Usage ##
 
-    docker run -d -p 64738:64738/tcp -p 64738:64738/udp -p 50051:50051/tcp yhaenggi/murmur:1.3.0
+    docker run -d -p 64738:64738/tcp -p 64738:64738/udp -p 50051:50051/tcp yhaenggi/murmur:1.3.1
 
 ## Build ##
 
@@ -21,4 +21,5 @@ You can verify if it worked with this (should show enabled):
     update-binfmts --display|grep -E "arm|aarch"
 
 ## Tags ##
+   * 1.3.1
    * 1.3.0
