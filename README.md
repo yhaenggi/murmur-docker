@@ -21,6 +21,7 @@ You can verify if it worked with this (should show enabled):
     update-binfmts --display|grep -E "arm|aarch"
 
 ## Tags ##
+   * 1.3.3
    * 1.3.2
    * 1.3.1
    * 1.3.0
