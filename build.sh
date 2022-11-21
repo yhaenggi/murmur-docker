@@ -1,4 +1,5 @@
 #!/bin/bash
+set -e
 VERSION="$(cat VERSION)"
 ARCHES="$(cat ARCHES)"
 REGISTRY="$(cat REGISTRY)"
