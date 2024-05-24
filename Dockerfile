@@ -32,7 +32,8 @@ RUN apt-get install -y libogg-dev libzeroc-ice-dev libpoco-dev
 
 RUN mkdir build
 WORKDIR /tmp/${IMAGE}/build
-RUN cmake -Dclient=OFF -Dserver=ON -Dstatic=ON -Dzeroconf=OFF -Ddbus=OFF ..
+# working around upstream issues... for 32bit; https://github.com/mumble-voip/mumble/issues/6377
+RUN cmake -Dclient=OFF -Dserver=ON -Dstatic=ON -Dzeroconf=OFF -Ddbus=OFF -Dwarnings-as-errors=OFF ..
 RUN bash -c "nice -n 20 make -j$(nproc)"
 
 FROM ${ARCH}/ubuntu:focal
@@ -55,8 +56,8 @@ RUN useradd -M -d /home/murmur -u 911 -U -s /bin/bash murmur
 RUN usermod -G users murmur
 
 COPY --from=0 /tmp/${IMAGE}/build/mumble-server /usr/bin/murmurd
-COPY --from=0 /tmp/${IMAGE}/build/murmur.ini /home/murmur/.murmur/murmur.ini
-RUN sed -i 's/^database=$/database=\/home\/murmur\/.murmur\/murmur.sqlite/' /home/murmur/.murmur/murmur.ini
+COPY --from=0 /tmp/${IMAGE}/build/mumble-server.ini /home/murmur/.murmur/mumble-server.ini
+RUN sed -i 's/^database=$/database=\/home\/murmur\/.murmur\/murmur.sqlite/' /home/murmur/.murmur/mumble-server.ini
 
 RUN chown murmur:murmur /home/murmur -R
 
@@ -68,4 +69,4 @@ WORKDIR /home/murmur
 EXPOSE 64738/tcp 64738/udp 50051
 
 ENTRYPOINT ["/usr/bin/murmurd"]
-CMD ["-v", "-fg", "-ini", "/home/murmur/.murmur/murmur.ini"]
+CMD ["-v", "-fg", "-ini", "/home/murmur/.murmur/mumble-server.ini"]
